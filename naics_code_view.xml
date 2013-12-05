@@ -1,0 +1,208 @@
+<openerp>
+    <data>
+		<menuitem name="Tools" id="base.menu_tools" sequence="120" groups="base.group_tool_user"/>
+        <record model="ir.ui.view" id="naics_code_form">
+            <field name="name">naics.code</field>
+            <field name="model">naics.code</field>
+            <field name="arch" type="xml">
+              <form string="NAICS Code" col="4" create="false" version="7.0">
+                <group string="NAICS Data" colspan="4">
+	              <field name="code" />
+	              <field name="title" colspan="4"/>
+                </group>
+                <group string="History" colspan="4">
+                  <field name="write_date" />
+                  <field name="write_uid" />
+                  <field name="create_date" />
+                  <field name="create_uid" />
+                </group>
+                <group string="Record" col="2">
+                  <field name="id" />
+                  <field name="sequence" />
+                </group>
+             </form>
+            </field>
+        </record>
+        <menuitem name="Code Configuration" parent="base.menu_tools"
+         id="base.menu_vendor_codes_root" sequence="20" />
+		<!-- TREE -->
+        <record model="ir.ui.view" id="naics_code_tree">
+            <field name="name">naics.code</field>
+            <field name="model">naics.code</field>
+            <field name="priority" eval="1" />
+            <field name="arch" type="xml">
+              <tree string="NAICS" create="false">
+                <field name="code" />
+                <field name="title" />
+                <field name="id" />
+                <field name="sequence" />
+              </tree>
+            </field>
+        </record>
+        <menuitem name="Vendor Codes" parent="base.menu_vendor_codes_root" id="vendor_codes" sequence="3" />        
+        <record model="ir.actions.act_window" id="action_naics_code">
+            <field name="name">NAICS</field>
+            <field name="res_model">naics.code</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Naics Codes" parent="vendor_codes" id="menu_naics_codes" action="action_naics_code" sequence="1" />
+        <!-- Commodity Codes -->
+        <record model="ir.ui.view" id="commodity_code_form">
+            <field name="name">commodity.code</field>
+            <field name="model">commodity.code</field>
+            <field name="arch" type="xml">
+              <form string="Commodity Code" col="4" version="7.0">
+                <group string=" SEPTA Commodity Data" colspan="4">
+	              <field name="code" />
+	              <field name="title" colspan="4" />
+                </group>
+                <group string="Category" colspan="4">
+                  <field name="category_id" select="2" on_change="onchange_category_id(category_id)" widget="selection" />
+                  <field name="category_child_prefix" />
+                  <field name="category_child_name" />
+                </group>
+                <group string="History" colspan="4">
+                  <field name="write_date" />
+                  <field name="write_uid" />
+                  <field name="create_date" />
+                  <field name="create_uid" />
+                </group>
+                <group string="Record" col="2">
+                  <field name="id" />
+                </group>
+             </form>
+            </field>
+        </record>
+		<!-- TREE -->
+        <record model="ir.ui.view" id="commodity_code_tree">
+            <field name="name">commodity.code</field>
+            <field name="model">commodity.code</field>
+            <field name="priority" eval="1" />
+            <field name="arch" type="xml">
+              <tree string="Commodity">
+				<field name="category_child_prefix" />
+                <field name="code" />
+                <field name="title" />
+                <field name="id" />
+              </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_commodity_code">
+            <field name="name">SEPTA Commodity Code</field>
+            <field name="res_model">commodity.code</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>        
+        <menuitem name="Commodity Codes" parent="vendor_codes" id="menu_commodity_codes" action="action_commodity_code" sequence="2"/>
+        <!-- Commodity Categories -->
+        <record model="ir.ui.view" id="commodity_category_form">
+            <field name="name">commodity.category</field>
+            <field name="model">commodity.category</field>
+            <field name="arch" type="xml">
+              <form string="Commodity Code Category" col="4" version="7.0">
+                <group string=" SEPTA Commodity Code Category" colspan="4">
+	              <field name="category_parent_prefix" />
+	              <field name="category_parent_name" colspan="4"/>
+	              <field name="category_child_prefix" />
+	              <field name="category_child_name" colspan="4"/>
+                </group>
+                <group string="History" colspan="4">
+                  <field name="write_date" />
+                  <field name="write_uid" />
+                  <field name="create_date" />
+                  <field name="create_uid" />
+                </group>
+                <group string="Record" col="2">
+                  <field name="id" />
+                </group>
+             </form>
+            </field>
+        </record>
+		<!-- TREE -->
+        <record model="ir.ui.view" id="commodity_category_tree">
+            <field name="name">commodity.category</field>
+            <field name="model">commodity.category</field>
+            <field name="priority" eval="1" />
+            <field name="arch" type="xml">
+              <tree string="Commodity Code Categories">
+                <field name="category_parent_prefix" />
+                <field name="category_parent_name" />
+                <field name="category_child_prefix" />
+                <field name="category_child_name" />
+              </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_commodity_category">
+            <field name="name">SEPTA Commodity Code Category</field>
+            <field name="res_model">commodity.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>        
+        <menuitem name="Commodity Categories" parent="vendor_codes" id="menu_commodity_categories" action="action_commodity_category" sequence="3"/>
+        <menuitem name="SEPTA Commodities" parent="base.menu_tools"
+         id="base.menu_commodities_root" sequence="25" />
+        <menuitem name="Commodities" parent="base.menu_commodities_root" id="commodities" sequence="3" />  
+        <!-- Commodities -->
+        <record model="ir.ui.view" id="commodity_form">
+            <field name="name">commodity.commodity</field>
+            <field name="model">commodity.commodity</field>
+            <field name="arch" type="xml">
+              <form string="Commodity" col="4" version="7.0">
+                <group string="SEPTA Commodity" colspan="4">
+                  <field name="commodity_code_id" />
+                </group>
+                <group string="NAICS Code" colspan="4">
+                  <field name="naics_code_id" />
+                </group>
+                <group string="Notes" colspan="4">
+                  <field name="note" />
+                </group>
+                <group string="History" colspan="4">
+                  <field name="write_date" />
+                  <field name="write_uid" />
+                  <field name="create_date" />
+                  <field name="create_uid" />
+                </group>
+                <group string="Record" col="2">
+                  <field name="vendor_id" />
+                </group>
+             </form>
+            </field>
+        </record>
+		<!-- TREE -->
+        <record model="ir.ui.view" id="commodity_tree">
+            <field name="name">commodity.commodity</field>
+            <field name="model">commodity.commodity</field>
+            <field name="priority" eval="1" />
+            <field name="arch" type="xml">
+              <tree string="Commodities">
+                <field name="vendor_id" />
+                <field name="note" />
+                <field name="write_date" />
+                <field name="create_date" />
+                <field name="active" />
+              </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_commodity">
+            <field name="name">SEPTA Commodity</field>
+            <field name="res_model">commodity.commodity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>        
+        <menuitem name="Commodity" parent="commodities" id="menu_commodity" action="action_commodity" sequence="4"/>
+	<!-- Product Suppliers 
+		<record id="view_product_supplier_inherit" model="ir.ui.view">
+			<field name="name">product.normal.supplier.form.inherit</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_normal_form_view"/>
+			<field name="arch" type="xml">
+				<group name="procurement" position="after">
+					 <separator string="Suppliers"/>
+					 <field name="seller_ids" context="{'uom_id': uom_id}"/>
+				</group>
+			</field>
+		</record> -->
+	</data>
+</openerp>
